@@ -13,7 +13,7 @@
   ChatUi.prototype.submitHandler = function (event) {
     event.preventDefault();
     var message = this.$rootEl.find("#chat-input").val();
-    $(event.target).find("input[type=text]").empty();
+    $(event.target).find("input[type=text]").val("");
     this.chat.sendMessage(message);
     this.addMessage(message);
   };
