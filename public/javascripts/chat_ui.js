@@ -20,7 +20,7 @@
 
   ChatUi.prototype.addMessage = function (message) {
     var chatEntry = $("<li>");
-    chatEntry.text(message);
+    chatEntry.text(this.chat.nickname + ": " + message);
     $("#chat-log").append(chatEntry);
   };
   

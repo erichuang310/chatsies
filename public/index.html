@@ -7,6 +7,17 @@
   <script src="/socket.io/socket.io.js"></script>
   <script src="/javascripts/chat.js"></script>
   <script src="/javascripts/chat_ui.js"></script>
+  <style>
+/*    div#chat-ui {
+      height:500px;
+    }
+    div#chat-log {
+      height:400px;
+    }
+    div#chat-form {
+      height:100px;
+    }*/
+  </style>
   <script>
     $(function () {
       var chatUi = new ChatApp.ChatUi($("div#chat-ui"));
@@ -16,11 +27,13 @@
 
 <body>
   <div id="chat-ui">
+    <ul id="chat-log">
+    </ul>
     <form id="chat-form">
       <input type="text" id="chat-input" />
       <input type="submit">
     </form>
-    <ul id="chat-log">
+    <ul id="chat-guests">
     </ul>
   </div>
   
