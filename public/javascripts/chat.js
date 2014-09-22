@@ -3,9 +3,9 @@
     window.ChatApp = {};
   }
 
-  var Chat = ChatApp.Chat = function (socket) {
+  var Chat = ChatApp.Chat = function (socket, chatUi) {
     this.socket = socket;
-    
+    this.chatUi = chatUi;
     this.socket.on("nicknameChangeResult", this.handleNicknameChange.bind(this));
     this.socket.on("message", this.handleMessage.bind(this));
   };
@@ -16,12 +16,12 @@
         nickname: msg.slice(6)
       });
     } else {
-      this.socket.emit("message", { message: msg });
+      this.socket.emit("message", { message: msg, nickname: this.nickname });
     } 
   };
   
   Chat.prototype.handleMessage = function (data) {
-    this.trigger("receievedMessage", data.message);
+    this.chatUi.addMessage(data.message);
   };
   
   Chat.prototype.handleNicknameChange = function (data) {
