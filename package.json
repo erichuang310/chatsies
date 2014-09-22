@@ -1,0 +1,16 @@
+{
+  "name": "chatApp",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "hh",
+  "license": "ISC",
+  "dependencies": {
+    "socket.io": "^1.1.0",
+    "mime": "~1.2.7",
+    "node-static": "^0.7.4"
+  }
+}

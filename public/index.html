@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Chatting</title>
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/javascripts/chat.js"></script>
+  <script src="/javascripts/chat_ui.js"></script>
+  <script>
+    $(function () {
+      var chatUi = new ChatApp.ChatUi($("div#chat-ui"));
+    });
+  </script>
+</head>
+
+<body>
+  <div id="chat-ui">
+    <form id="chat-form">
+      <input type="text" id="chat-input" />
+      <input type="submit">
+    </form>
+    <ul id="chat-log">
+    </ul>
+  </div>
+  
+</body>
+
+</html>
