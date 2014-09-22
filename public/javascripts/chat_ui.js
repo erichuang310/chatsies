@@ -7,6 +7,7 @@
     this.$rootEl = $rootEl;
     this.socket = io();
     this.chat = new ChatApp.Chat(this.socket);
+    this.chat.on("receivedMessage", addMessage(message));
     $("#chat-form").on("submit", this.submitHandler.bind(this));
   }
   
@@ -23,5 +24,9 @@
     chatEntry.text(this.chat.nickname + ": " + message);
     $("#chat-log").append(chatEntry);
   };
+  //
+  // ChatUi.prototype.getAllUsers = function () {
+  //
+  // }
   
 })();

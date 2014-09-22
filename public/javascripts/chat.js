@@ -7,6 +7,7 @@
     this.socket = socket;
     
     this.socket.on("nicknameChangeResult", this.handleNicknameChange.bind(this));
+    this.socket.on("message", this.handleMessage.bind(this));
   };
 
   Chat.prototype.sendMessage = function(msg) {
@@ -19,9 +20,11 @@
     } 
   };
   
+  Chat.prototype.handleMessage = function (data) {
+    this.trigger("receievedMessage", data.message);
+  };
+  
   Chat.prototype.handleNicknameChange = function (data) {
-    console.log("WTF");
-    debugger
     this.nickname = data.nickname;
   };
 
