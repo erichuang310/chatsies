@@ -24,4 +24,15 @@
     $("#chat-log").append(chatEntry);
   };
   
+  ChatUi.prototype.updateUsersList = function (users) {
+    var $usersList = this.$rootEl.find("#chat-users");
+    $usersList.empty();
+    
+    for (var i = 0; i < users.length; i++) {
+      var user = users[i];
+      var userEntry = $("<li>");
+      userEntry.text(user);
+      $usersList.append(userEntry);
+    }
+  }
 })();
