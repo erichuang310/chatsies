@@ -3,21 +3,20 @@
 
 <head>
   <title>Chatting</title>
+
+<!-- BOOTSTRAP CORE STYLE CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+
+  <link rel="stylesheet" href="/css/custom.css">
+
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.4.0/jquery.timeago.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script src="/javascripts/chat.js"></script>
+  <script src="/javascripts/bootstrap.min.js"></script>
   <script src="/javascripts/chat_ui.js"></script>
-  <style>
-/*    div#chat-ui {
-      height:500px;
-    }
-    div#chat-log {
-      height:400px;
-    }
-    div#chat-form {
-      height:100px;
-    }*/
-  </style>
   <script>
     $(function () {
       var chatUi = new ChatApp.ChatUi($("div#chat-ui"));
@@ -27,16 +26,56 @@
 
 <body>
   <div id="chat-ui">
-    <ul id="chat-log">
-    </ul>
-    <form id="chat-form">
-      <input type="text" id="chat-input" />
-      <input type="submit">
-    </form>
-    <ul id="chat-users">
+    <ul id="rooms">
     </ul>
   </div>
-  
+
+  <div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                  <span class="glyphicon glyphicon-comment"></span> Chat
+                </div>
+                <div class="panel-body">
+                  <ul class="chat-log">
+                  </ul>
+                </div>
+                <div class="panel-footer">
+                    <div class="input-group">
+                      <form id="message-form">
+                        <input id="message-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+                        <span class="input-group-btn">
+                          <input
+                            class="btn btn-warning btn-sm"
+                            type="submit">
+                            Send
+                          </input>
+                        </span>
+                      </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 </body>
 
 </html>
+
+<script type="text/template" class="chat-template">
+  <div class="chat-body clearfix">
+    <div class="header">
+      <strong class="primary-font"><%= username %></strong>
+      <small class="pull-right text-muted">
+        <span class="glyphicon glyphicon-time"></span>
+          <%= timeago %>
+      </small>
+    </div>
+    <p>
+      <%= text %>
+    </p>
+  </div>
+</script>

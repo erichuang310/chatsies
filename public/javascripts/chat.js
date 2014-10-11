@@ -1,50 +1,38 @@
+"use strict";
+
 (function() {
   if (typeof ChatApp === 'undefined'){
     window.ChatApp = {};
   }
 
-  var Chat = ChatApp.Chat = function (socket, chatUi) {
-    this.socket = socket;
+  var Chat = ChatApp.Chat = function (chatUi) {
+    this.socket = io();
     this.chatUi = chatUi;
-    this.getUsersList();
-    this.socket.on("nicknameChangeResult", this.handleNicknameChange.bind(this));
-    this.socket.on("message", this.handleMessage.bind(this));
-    this.socket.on("usersResponse", this.handleUsersRequest.bind(this));
   };
 
-  Chat.prototype.sendMessage = function(msg) {
-    if (msg.indexOf("/") === 0) {
-      this.processCommand(msg);
+  Chat.prototype.sendMessage = function(text) {
+    if (text.indexOf("/") === 0) {
+      this.sendCommand(text);
     } else {
-      this.socket.emit("message", { message: msg, nickname: this.nickname });
-    }
-  };
-  
-  Chat.prototype.handleMessage = function (data) {
-    this.chatUi.addMessage(data.message);
-  };
-  
-  Chat.prototype.handleNicknameChange = function (data) {
-    this.nickname = data.nickname;
-  };
-  
-  Chat.prototype.handleUsersRequest = function (data) {
-    this.chatUi.updateUsersList(data.users);
-  };
-  
-  Chat.prototype.processCommand = function(command) {
-    if (command.toLowerCase().indexOf('/nick') === 0) {
-      this.socket.emit("nicknameChangeRequest", {
-        nickname: command.slice(6)
+      this.socket.emit("message", {
+        text: text
       });
-    } else if (command.indexOf('/getUsers') === 0) {
-      this.socket.emit("usersRequest", {});
-    } else {
-      this.chatUi.addMessage("Invalid command: " + command);
     }
   };
-  
-  Chat.prototype.getUsersList = function () {
-    this.processCommand("/getUsers");
+
+  Chat.prototype.sendCommand = function(command) {
+    if (command.toLowerCase().indexOf('/username') === 0) {
+      var username = command.slice(10);
+      this.socket.emit("usernameChangeRequest", {
+        username: username
+      });
+    } else if (command.indexOf('/join') === 0) {
+      var room = command.slice(6);
+      this.socket.emit("roomChangeRequest", { room: room})
+    } else {
+      this.chatUi.addMessageView({
+        text: "Invalid command: " + command.slice(1)
+      });
+    }
   };
 })();
