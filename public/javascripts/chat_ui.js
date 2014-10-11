@@ -43,7 +43,19 @@
   };
 
   ChatUi.prototype.addMessageView = function (message) {
-    var template = $(".chat-template").html()
+    var template =
+      '<div class="chat-body clearfix">' +
+        '<div class="header">' +
+          '<strong class="primary-font"><%= username %></strong>' +
+          '<small class="pull-right text-muted">' +
+            '<span class="glyphicon glyphicon-time"></span>' +
+              '<%= timeago %>' +
+          '</small>' +
+        '</div>' +
+        '<p>' +
+          '<%= text %>' +
+        '</p>' +
+      '</div>'
 
     var chatEntry = _.template(template);
     var chatEntry = chatEntry({

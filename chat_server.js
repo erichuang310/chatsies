@@ -106,13 +106,11 @@ var getRoomData = function (io) {
     if (!roomData.hasOwnProperty(room)) roomData[room] = [];
     roomData[room].push(usernames[socketId]);
   }
-  
+
   return roomData;
 };
 
-var ChatServer = function(server) {
-  var io = require("socket.io")(server);
-
+var ChatServer = function(io) {
   io.on("connection", function (socket) {
     usernames[socket.id] = currentUsername();
     joinRoom(socket, io, "lobby");

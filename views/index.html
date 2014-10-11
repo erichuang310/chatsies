@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Chatting</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/application.css">
+
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.4.0/jquery.timeago.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/javascripts/chat.js"></script>
+  <script src="/javascripts/bootstrap.min.js"></script>
+  <script src="/javascripts/chat_ui.js"></script>
+  <script>
+    $(function () {
+      var chatUi = new ChatApp.ChatUi();
+    });
+  </script>
+
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-5">
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <span class="glyphicon glyphicon-comment"></span> Chat
+            </div>
+            <div class="panel-body">
+              <ul class="chat-log">
+              </ul>
+            </div>
+            <div class="panel-footer">
+              <!-- <div class="container-fluid">
+                <form id="message-form">
+                  <div class="row">
+                    <div class="col-xs-9"> -->
+                      <textarea
+                        id="message-input"
+                        type="text"
+                        class="form-control"></textarea>
+                    <!-- </div>
+                    <div class="col-xs-3">
+                      <input
+                        class="form-control"
+                        type="submit"
+                        value="Send">
+                    </div>
+                  </div>
+                </form>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+
+</script>
