@@ -4,11 +4,8 @@
 <head>
   <title>Chatting</title>
 
-<!-- BOOTSTRAP CORE STYLE CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-
-
-  <link rel="stylesheet" href="/css/custom.css">
+  <link rel="stylesheet" href="/css/application.css">
 
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.4.0/jquery.timeago.min.js"></script>
@@ -19,51 +16,52 @@
   <script src="/javascripts/chat_ui.js"></script>
   <script>
     $(function () {
-      var chatUi = new ChatApp.ChatUi($("div#chat-ui"));
+      var chatUi = new ChatApp.ChatUi();
     });
   </script>
-</head>
 
-<body>
-  <div id="chat-ui">
-    <ul id="rooms">
-    </ul>
-  </div>
-
-  <div class="container">
-    <div class="row">
+  <body>
+    <div class="container">
+      <div class="row">
         <div class="col-md-5">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                  <span class="glyphicon glyphicon-comment"></span> Chat
-                </div>
-                <div class="panel-body">
-                  <ul class="chat-log">
-                  </ul>
-                </div>
-                <div class="panel-footer">
-                    <div class="input-group">
-                      <form id="message-form">
-                        <input id="message-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
-                        <span class="input-group-btn">
-                          <input
-                            class="btn btn-warning btn-sm"
-                            type="submit">
-                            Send
-                          </input>
-                        </span>
-                      </form>
-                    </div>
-                </div>
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <span class="glyphicon glyphicon-comment"></span> Chat
             </div>
+            <div class="panel-body">
+              <ul class="chat-log">
+              </ul>
+            </div>
+            <div class="panel-footer">
+              <!-- <div class="container-fluid">
+                <form id="message-form">
+                  <div class="row">
+                    <div class="col-xs-9"> -->
+                      <textarea
+                        id="message-input"
+                        type="text"
+                        class="form-control"></textarea>
+                    <!-- </div>
+                    <div class="col-xs-3">
+                      <input
+                        class="form-control"
+                        type="submit"
+                        value="Send">
+                    </div>
+                  </div>
+                </form>
+              </div> -->
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
-
-
-</body>
-
+  </body>
 </html>
+
+<script>
+
+</script>
 
 <script type="text/template" class="chat-template">
   <div class="chat-body clearfix">

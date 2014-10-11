@@ -13,14 +13,19 @@
     this.$messageForm = $("#message-form");
     this.chat = new ChatApp.Chat(this);
 
-    this.$messageForm.on("submit", this.submitHandler.bind(this));
+    this.$messageInput.keydown(function (event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        this.submitHandler();
+      }
+    }.bind(this));
+
+    // this.$messageForm.on("submit", this.submitHandler.bind(this));
     this.chat.socket.on('roomList', this.updateRoomList.bind(this));
     this.chat.socket.on("message", this.addMessageView.bind(this));
   };
 
-  ChatUi.prototype.submitHandler = function (event) {
-    console.log("WHOAH")
-    event.preventDefault();
+  ChatUi.prototype.submitHandler = function () {
     var message = this.$messageInput.val();
     this.$messageInput.val("");
     this.chat.sendMessage(message);

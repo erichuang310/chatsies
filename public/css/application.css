@@ -1,3 +1,11 @@
+.form-control {
+  border-radius: 0px;
+}
+
+textarea {
+  resize: none;
+}
+
 .chat-log {
   padding-left: 0;
 }
