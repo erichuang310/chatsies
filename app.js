@@ -1,8 +1,8 @@
 "use strict";
 
-var http = require('http'),
-nodeStatic = require('node-static');
-// socketio = require('socket.io');
+var http = require('http');
+var nodeStatic = require('node-static');
+var socketio = require('socket.io');
 
 var file = new nodeStatic.Server('./public');
 
