@@ -1,16 +1,15 @@
 {
   "name": "Chatsies",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
   },
   "author": "Eric Huang",
   "license": "ISC",
   "dependencies": {
     "ejs": "^1.0.0",
-    "socket.io": "1.0.x",
-    "express": "~4.9.x"
-  },
-  "devDependencies": {}
+    "express": "~4.9.x",
+    "socket.io": "1.0.x"
+  }
 }
