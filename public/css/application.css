@@ -1,6 +1,45 @@
-.form-control {
+.panel, .panel-body {
   border-radius: 0px;
 }
+
+.panel-footer {
+  padding: 0px;
+}
+
+#message-input {
+  border-radius: 0px;
+  border: 0px;
+  height: 100%;
+  width: 100%;
+}
+
+.panel {
+  border: 1px solid darkGrey;
+}
+
+.panel-heading {
+  border-bottom: 1px solid darkGrey;
+}
+
+/*.panel-heading {*/
+  /*border-top-left-radius: 0px;*/
+  /*border-top-right-radius: 0px;*/
+/*}*/
+
+#chat {
+  top: 50%;
+	transform: translateY(-50%);
+  position: relative;
+}
+
+body {
+  position: absolute;
+  height: 100vh;
+}
+
+/*.form-control {
+  border-radius: 0px;
+}*/
 
 textarea {
   resize: none;
@@ -46,10 +85,34 @@ textarea {
     margin-right: 5px;
 }
 
-.panel-body
-{
-    overflow-y: scroll;
-    height: 250px;
+
+#chat-sidebar-container {
+  padding-left: 0px;
+}
+
+#chat-sidebar {
+  border-left: 0px;
+}
+
+#chat-main-container {
+  padding-right: 0px;
+}
+
+#chat-log-container {
+  overflow-y: scroll;
+  height: 250px;
+}
+
+#rooms {
+  height: 300px;
+}
+
+.panel-heading {
+  height: 40px;
+}
+
+.panel-footer {
+  height: 50px;
 }
 
 ::-webkit-scrollbar-track

@@ -17,48 +17,46 @@
   <script>
     $(function () {
       var chatUi = new ChatApp.ChatUi();
+      $("textarea").focus();
     });
   </script>
 
   <body>
-    <div class="container">
+    <div class="container" id="chat">
+      <div class="row text-center" style="padding-bottom:20px;">
+        <!-- <div class="col-xs-12"> -->
+        <img src="/img/nodejs.png"></img>
+        <!-- </div> -->
+      </div>
       <div class="row">
-        <div class="col-md-5">
-          <div class="panel panel-primary">
+        <div class="col-xs-6 col-xs-offset-2" id="chat-main-container">
+          <div class="panel" id="chat-main">
             <div class="panel-heading">
-              <span class="glyphicon glyphicon-comment"></span> Chat
+              <span class="glyphicon glyphicon-comment"></span> Lobby
             </div>
-            <div class="panel-body">
-              <ul class="chat-log">
-              </ul>
+            <div class="panel-body" id="chat-log-container">
+              <div id="chat-log">
+              </div>
             </div>
+
             <div class="panel-footer">
-              <!-- <div class="container-fluid">
-                <form id="message-form">
-                  <div class="row">
-                    <div class="col-xs-9"> -->
-                      <textarea
-                        id="message-input"
-                        type="text"
-                        class="form-control"></textarea>
-                    <!-- </div>
-                    <div class="col-xs-3">
-                      <input
-                        class="form-control"
-                        type="submit"
-                        value="Send">
-                    </div>
-                  </div>
-                </form>
-              </div> -->
+              <textarea
+                id="message-input"
+                type="text"
+                class="form-control"></textarea>
             </div>
           </div>
         </div>
+          <div class="col-xs-2" id="chat-sidebar-container">
+            <div class="panel" id="chat-sidebar">
+              <div class="panel-heading">
+                <span class="glyphicon glyphicon-user"></span> Users
+              </div>
+              <div class="panel-body" id="rooms">
+              </div>
+            </div>
+          </div>
       </div>
     </div>
   </body>
 </html>
-
-<script>
-
-</script>

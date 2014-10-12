@@ -7,65 +7,64 @@
 
   var ChatUi = ChatApp.ChatUi = function ($rootEl) {
     this.$rooms = $("#rooms");
-    this.$messageLogPanel = $(".panel-body");
-    this.$chatLog = $(".chat-log");
-    this.$messageInput = $("#message-input");
-    this.$messageForm = $("#message-form");
-    this.chat = new ChatApp.Chat(this);
+    this.$chatLogContainer = $("#chat-log-container");
+    this.$chatLog = $("#chat-log");
+    // this.$chatLog = $(".chat-log");
+    this.$chatInput = $("#message-input");
+    this.chat = new ChatApp.Chat();
 
-    this.$messageInput.keydown(function (event) {
+    this.$chatInput.keydown(function (event) {
       if (event.keyCode === 13) {
         event.preventDefault();
-        this.submitHandler();
+        this.sendMessage();
       }
     }.bind(this));
 
-    // this.$messageForm.on("submit", this.submitHandler.bind(this));
     this.chat.socket.on('roomList', this.updateRoomList.bind(this));
     this.chat.socket.on("message", this.addMessageView.bind(this));
   };
 
-  ChatUi.prototype.submitHandler = function () {
-    var message = this.$messageInput.val();
-    this.$messageInput.val("");
-    this.chat.sendMessage(message);
+  ChatUi.prototype.sendMessage = function () {
+    var message = this.$chatInput.val();
+    if (message.length > 0) {
+      this.$chatInput.val("");
+      this.chat.sendMessage(message);
+    }
   };
 
   ChatUi.prototype.updateRoomList = function (roomData) {
     this.$rooms.empty();
     for(var room in roomData) {
-      this.$rooms.append(room + "<br>");
       roomData[room].forEach(function (username) {
-        this.$rooms.append(" - " + username + "<br>");
+        this.$rooms.append(username + "<br>");
       }.bind(this));
-      this.$rooms.append("<br>");
     }
   };
 
   ChatUi.prototype.addMessageView = function (message) {
-    var template =
-      '<div class="chat-body clearfix">' +
-        '<div class="header">' +
-          '<strong class="primary-font"><%= username %></strong>' +
-          '<small class="pull-right text-muted">' +
-            '<span class="glyphicon glyphicon-time"></span>' +
-              '<%= timeago %>' +
-          '</small>' +
-        '</div>' +
-        '<p>' +
-          '<%= text %>' +
-        '</p>' +
-      '</div>'
+    var messageTemplate =
+      _.template(
+        '<div class="chat-body clearfix">' +
+          '<div class="header">' +
+            '<strong class="primary-font"><%= username %></strong>' +
+            '<small class="pull-right text-muted">' +
+              '<span class="glyphicon glyphicon-time"></span> ' +
+                '<%= timeago %>' +
+            '</small>' +
+          '</div>' +
+          '<p>' +
+            '<%= text %>' +
+          '</p>' +
+        '</div>'
+      );
 
-    var chatEntry = _.template(template);
-    var chatEntry = chatEntry({
+    var message = messageTemplate({
       username: message.username,
       text: message.text,
       timeago: jQuery.timeago(new Date())
-    })
+    });
 
-    this.$chatLog.append(chatEntry);
-    this.$messageLogPanel.scrollTop(this.$chatLog.height());
-    // setjQuery.timeago(new Date())
+    this.$chatLog.append(message);
+    this.$chatLogContainer.scrollTop(this.$chatLog.height());
   };
 })();

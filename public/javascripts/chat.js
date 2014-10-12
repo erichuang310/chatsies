@@ -5,9 +5,8 @@
     window.ChatApp = {};
   }
 
-  var Chat = ChatApp.Chat = function (chatUi) {
+  var Chat = ChatApp.Chat = function () {
     this.socket = io();
-    this.chatUi = chatUi;
   };
 
   Chat.prototype.sendMessage = function(text) {
@@ -26,13 +25,9 @@
       this.socket.emit("usernameChangeRequest", {
         username: username
       });
-    } else if (command.indexOf('/join') === 0) {
+    } else if (command.indexOf('/') === 0) {
       var room = command.slice(6);
       this.socket.emit("roomChangeRequest", { room: room})
-    } else {
-      this.chatUi.addMessageView({
-        text: "Invalid command: " + command.slice(1)
-      });
     }
   };
 })();
