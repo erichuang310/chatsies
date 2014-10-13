@@ -94,13 +94,14 @@ textarea {
   border-left: 0px;
 }
 
-#chat-main-container {
-  padding-right: 0px;
-}
+/*#chat-log-container {*/
+  /*overflow-y: scroll;*/
+  /*height: 250px;*/
+/*}*/
 
-#chat-log-container {
+#chat-log {
   overflow-y: scroll;
-  height: 250px;
+  height: 300px;
 }
 
 #rooms {

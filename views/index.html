@@ -4,8 +4,11 @@
 <head>
   <title>Chatting</title>
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/css/application.css">
+  <!-- <link rel="stylesheet" href="http://bootswatch.com/paper/bootstrap.min.css"> -->
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/app.css">
 
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.4.0/jquery.timeago.min.js"></script>
@@ -22,40 +25,43 @@
   </script>
 
   <body>
-    <div class="container" id="chat">
-      <div class="row text-center" style="padding-bottom:20px;">
-        <!-- <div class="col-xs-12"> -->
-        <img src="/img/nodejs.png"></img>
-        <!-- </div> -->
-      </div>
+    <div class="container">
       <div class="row">
-        <div class="col-xs-6 col-xs-offset-2" id="chat-main-container">
-          <div class="panel" id="chat-main">
-            <div class="panel-heading">
-              <span class="glyphicon glyphicon-comment"></span> Lobby
+        <div class="col-xs-8 col-xs-offset-2">
+          <div class="panel panel-default" id="chat">
+            <div class="panel-heading" id="chat-heading">
+              <div class="row">
+                <div class="col-xs-9">
+                  <span class="glyphicon glyphicon-comment"></span> Lobby
+                </div>
+                <div class="col-xs-3 text-right">
+                  <a href="#">
+                    <span class="glyphicon glyphicon-globe"></span> Join New Room
+                  </a>
+                </div>
+              </div>
+
             </div>
-            <div class="panel-body" id="chat-log-container">
-              <div id="chat-log">
+            <div class="panel-body" id="chat-body">
+              <div class="row">
+                <div class="col-xs-9" id="chat-log-container">
+                  <div id="chat-log">
+                  </div>
+                </div>
+                <div class="col-xs-3" id="sidebar-container">
+                  <div id="rooms">
+                  </div>
+                </div>
               </div>
             </div>
-
-            <div class="panel-footer">
+            <div class="panel-footer" id="chat-footer">
               <textarea
-                id="message-input"
+                id="chat-input"
                 type="text"
                 class="form-control"></textarea>
             </div>
           </div>
         </div>
-          <div class="col-xs-2" id="chat-sidebar-container">
-            <div class="panel" id="chat-sidebar">
-              <div class="panel-heading">
-                <span class="glyphicon glyphicon-user"></span> Users
-              </div>
-              <div class="panel-body" id="rooms">
-              </div>
-            </div>
-          </div>
       </div>
     </div>
   </body>

@@ -10,7 +10,7 @@
     this.$chatLogContainer = $("#chat-log-container");
     this.$chatLog = $("#chat-log");
     // this.$chatLog = $(".chat-log");
-    this.$chatInput = $("#message-input");
+    this.$chatInput = $("#chat-input");
     this.chat = new ChatApp.Chat();
 
     this.$chatInput.keydown(function (event) {
@@ -44,7 +44,7 @@
   ChatUi.prototype.addMessageView = function (message) {
     var messageTemplate =
       _.template(
-        '<div class="chat-body clearfix">' +
+        '<div class="message">' +
           '<div class="header">' +
             '<strong class="primary-font"><%= username %></strong>' +
             '<small class="pull-right text-muted">' +

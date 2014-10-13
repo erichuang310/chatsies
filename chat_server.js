@@ -18,7 +18,7 @@ var joinRoom = function (socket, io, room) {
   rooms[socket.id] = room;
 
   io.to(room).emit('message', {
-    username: usernames[socket.id] + " entered the room.",
+    username: usernames[socket.id] + " entered the room",
     // text: "joined " + room,
     room: room
   });
@@ -42,7 +42,7 @@ var handleDisconnect = function (socket, io) {
 
     var currentRoom = rooms[socket.id];
     io.to(currentRoom).emit('message', {
-      username: usernames[socket.id] + " left the room.",
+      username: usernames[socket.id] + " left the room",
       // text: (" is leaving " + currentRoom + "."),
       room: currentRoom
     });
