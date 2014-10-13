@@ -53,8 +53,22 @@
                       </a>
                     <!-- </button> -->
                     <ul class="dropdown-menu" role="menu">
-                      <li><a href="#">Change username</a></li>
-                      <li><a href="#">Join a new room</a></li>
+                      <li>
+                        <a
+                          href="#"
+                          data-toggle="modal"
+                          data-target="#username-modal">
+                          Change username
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="#"
+                          data-toggle="modal"
+                          data-target="#room-modal">
+                          Join new room
+                        </a>
+                      </li>
                     </ul>
                   </div>
                 </div>
@@ -84,4 +98,75 @@
       </div>
     </div>
   </body>
+
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="username-modal"
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form>
+          <div class="modal-body">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter new username"
+              name="username">
+          </div>
+          <div class="modal-footer">
+
+            <button
+              type="button"
+              class="btn btn-default"
+              data-dismiss="modal">
+              Close
+            </button>
+            <input
+              type="submit"
+              class="btn btn-primary"
+              value="Change">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="room-modal"
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form>
+          <div class="modal-body">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter new room"
+              name="room">
+          </div>
+          <div class="modal-footer">
+
+            <button
+              type="button"
+              class="btn btn-default"
+              data-dismiss="modal">
+              Close
+            </button>
+            <input
+              type="submit"
+              class="btn btn-primary"
+              value="Join">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
 </html>
