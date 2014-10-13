@@ -5,23 +5,50 @@
     window.ChatApp = {};
   }
 
-  var ChatUi = ChatApp.ChatUi = function ($rootEl) {
+  var ChatUi = ChatApp.ChatUi = function (id) {
+
+    this.chat = new ChatApp.Chat();
+    if (window.location.pathname.split("/")[1]) {
+  	  this.room = window.location.pathname.split("/")[1];
+      this.chat.sendMessage("/room " + this.room);
+    } else {
+      this.room = "lobby";
+    }
+
     this.$rooms = $("#rooms");
     this.$chatLogContainer = $("#chat-log-container");
     this.$chatLog = $("#chat-log");
-    // this.$chatLog = $(".chat-log");
     this.$chatInput = $("#chat-input");
-    this.chat = new ChatApp.Chat();
+    this.$usernameRequestForm = $("form#username-request");
+    this.$roomRequestForm = $("form#room-request");
 
+    this.handleChatInput();
+    this.$roomRequestForm.on("submit", this.requestRoom.bind(this));
+    this.$usernameRequestForm.on("submit", this.requestUsername.bind(this));
+    this.chat.socket.on('roomList', this.updateRoomList.bind(this));
+    this.chat.socket.on("message", this.addMessageView.bind(this));
+  };
+
+  ChatUi.prototype.handleChatInput = function () {
     this.$chatInput.keydown(function (event) {
       if (event.keyCode === 13) {
         event.preventDefault();
         this.sendMessage();
       }
     }.bind(this));
+  };
 
-    this.chat.socket.on('roomList', this.updateRoomList.bind(this));
-    this.chat.socket.on("message", this.addMessageView.bind(this));
+  ChatUi.prototype.requestUsername = function (event) {
+    event.preventDefault();
+  };
+
+  ChatUi.prototype.requestRoom = function (event) {
+    event.preventDefault();
+    var room = $(event.currentTarget).find("input[name=room]").val();
+    this.room = room;
+    $(event.currentTarget).find("input[name=room]").val("");
+    this.chat.sendMessage("/room " + room);
+    $("#room-modal").modal("hide");
   };
 
   ChatUi.prototype.sendMessage = function () {
@@ -33,12 +60,11 @@
   };
 
   ChatUi.prototype.updateRoomList = function (roomData) {
+    var that = this;
     this.$rooms.empty();
-    for(var room in roomData) {
-      roomData[room].forEach(function (username) {
-        this.$rooms.append(username + "<br>");
-      }.bind(this));
-    }
+    _(roomData[this.room]).each( function (username) {
+      that.$rooms.append(username + "<br>");
+    });
   };
 
   ChatUi.prototype.addMessageView = function (message) {
