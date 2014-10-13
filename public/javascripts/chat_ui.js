@@ -49,7 +49,7 @@
             '<strong class="primary-font"><%= username %></strong>' +
             '<small class="pull-right text-muted">' +
               '<span class="glyphicon glyphicon-time"></span> ' +
-                '<%= timeago %>' +
+                '<abbr class="timeago" title="<%= date %>"><%= timeago %></abbr>' +
             '</small>' +
           '</div>' +
           '<p>' +
@@ -61,6 +61,7 @@
     var message = messageTemplate({
       username: message.username,
       text: message.text,
+      date: new Date().toISOString(),
       timeago: jQuery.timeago(new Date())
     });
 

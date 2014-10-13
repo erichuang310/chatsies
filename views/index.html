@@ -21,6 +21,14 @@
     $(function () {
       var chatUi = new ChatApp.ChatUi();
       $("textarea").focus();
+
+      function updateTime() {
+         setTimeout(updateTime, 1000 * 60);
+         $("abbr.timeago").timeago();
+      };
+
+      updateTime();
+
     });
   </script>
 
@@ -32,12 +40,23 @@
             <div class="panel-heading" id="chat-heading">
               <div class="row">
                 <div class="col-xs-9">
-                  <span class="glyphicon glyphicon-comment"></span> Lobby
+                  <span class="glyphicon glyphicon-comment"></span> LOBBY
                 </div>
                 <div class="col-xs-3 text-right">
-                  <a href="#">
-                    <span class="glyphicon glyphicon-globe"></span> Join New Room
-                  </a>
+                  <div class="btn-group">
+                    <!-- <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> -->
+                      <a
+                        href="#"
+                        class="dropdown-toggle"
+                        data-toggle="dropdown">
+                         ACTIONS <span class="caret"></span>
+                      </a>
+                    <!-- </button> -->
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a href="#">Change username</a></li>
+                      <li><a href="#">Join a new room</a></li>
+                    </ul>
+                  </div>
                 </div>
               </div>
 
