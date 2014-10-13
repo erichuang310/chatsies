@@ -7,13 +7,6 @@
 
   var ChatUi = ChatApp.ChatUi = function (id) {
 
-    this.chat = new ChatApp.Chat();
-    if (window.location.pathname.split("/")[1]) {
-  	  this.room = window.location.pathname.split("/")[1];
-      this.chat.sendMessage("/room " + this.room);
-    } else {
-      this.room = "lobby";
-    }
 
     this.$rooms = $("#rooms");
     this.$chatLogContainer = $("#chat-log-container");
@@ -21,6 +14,16 @@
     this.$chatInput = $("#chat-input");
     this.$usernameRequestForm = $("form#username-request");
     this.$roomRequestForm = $("form#room-request");
+    this.$roomName = $("#room-name");
+
+    this.chat = new ChatApp.Chat();
+    if (window.location.pathname.split("/")[1]) {
+  	  this.room = window.location.pathname.split("/")[1];
+      this.chat.sendMessage("/room " + this.room);
+      this.$roomName.html(this.room.toUpperCase());
+    } else {
+      this.room = "lobby";
+    }
 
     this.handleChatInput();
     this.$roomRequestForm.on("submit", this.requestRoom.bind(this));
@@ -40,12 +43,17 @@
 
   ChatUi.prototype.requestUsername = function (event) {
     event.preventDefault();
+    var username = $(event.currentTarget).find("input[name=username]").val();
+    $(event.currentTarget).find("input[name=username]").val("");
+    this.chat.sendMessage("/username " + username);
+    $("#username-modal").modal("hide");
   };
 
   ChatUi.prototype.requestRoom = function (event) {
     event.preventDefault();
     var room = $(event.currentTarget).find("input[name=room]").val();
     this.room = room;
+    this.$roomName.html(this.room.toUpperCase());
     $(event.currentTarget).find("input[name=room]").val("");
     this.chat.sendMessage("/room " + room);
     $("#room-modal").modal("hide");
