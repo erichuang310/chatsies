@@ -6,6 +6,10 @@ p:last-child {
   margin-bottom: 0px;
 }
 
+#header {
+  margin-bottom: 20px;
+}
+
 #container {
   height: 100%
   width: 100%
