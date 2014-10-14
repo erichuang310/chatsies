@@ -34,13 +34,29 @@
   };
 
   ChatUi.prototype.handleChatInput = function () {
+
+
+    var message = this.$chatInput.val();
+    if (status === "submit") {
+      this.$chatInput.val("");
+    }
+
     this.$chatInput.keyup(function (event) {
+      var text = $(event.currentTarget).val();
+
       if (event.keyCode === 13) {
         event.preventDefault();
-        this.sendMessage("submit");
+        this.$chatInput.val("");
+        var status = "submit";
       } else {
-        this.sendMessage("update");
+        var status = "update";
       }
+
+      this.chat.sendMessage({
+        status: status,
+        text: text
+      });
+
     }.bind(this));
   };
 
@@ -55,20 +71,12 @@
   ChatUi.prototype.requestRoom = function (event) {
     event.preventDefault();
     this.room = $(event.currentTarget).find("input[name=room]").val();
+    $(event.currentTarget).find("input[name=room]").val("");
+    this.chat.requestRoom(this.room);
     this.$roomName.html(this.room.toUpperCase());
     this.$roomCopyUrl.attr("href", "http://www.chatsies.com/" + this.room);
     window.history.pushState("", "", this.room);
-    $(event.currentTarget).find("input[name=room]").val("");
-    this.chat.requestRoom(this.room);
     $("#room-modal").modal("hide");
-  };
-
-  ChatUi.prototype.sendMessage = function (status) {
-    var message = this.$chatInput.val();
-    if (status === "submit") {
-      this.$chatInput.val("");
-    }
-    this.chat.sendMessage(message, status);
   };
 
   ChatUi.prototype.updateRoomList = function (roomData) {

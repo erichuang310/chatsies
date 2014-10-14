@@ -9,10 +9,10 @@
     this.socket = io();
   };
 
-  Chat.prototype.sendMessage = function(text, status) {
+  Chat.prototype.sendMessage = function(options) {
     this.socket.emit("message", {
-      status: status,
-      text: text
+      status: options.status,
+      text: options.text
     });
   };
 
