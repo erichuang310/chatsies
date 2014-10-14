@@ -47,6 +47,8 @@ div.active.message strong {
 
 #chat-log-container, #sidebar-container {
   padding: 0px;
+  overflow-y: scroll;
+  height: 100%;
 }
 
 #chat-heading {
@@ -63,8 +65,8 @@ div.active.message strong {
 }
 
 #chat-log-container {
-  height: 100%;
-  overflow-y: scroll;
+  /*height: 100%;*/
+  /*overflow-y: scroll;*/
   border-right: 1px solid darkGrey;
 }
 

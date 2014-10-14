@@ -30,7 +30,7 @@
     this.$roomRequestForm.on("submit", this.requestRoom.bind(this));
     this.$usernameRequestForm.on("submit", this.requestUsername.bind(this));
     this.chat.socket.on('roomList', this.updateRoomList.bind(this));
-    this.chat.socket.on("message", this.addMessageView.bind(this));
+    this.chat.socket.on("message", this.handleMessage.bind(this));
   };
 
   ChatUi.prototype.handleChatInputChange = function () {
@@ -80,33 +80,26 @@
     });
   };
 
-  ChatUi.prototype.addMessageView = function (msg) {
-    var messageTemplate =
-      _.template(
-        '<div class="message active" data-username="<%= escaped_username %>">' +
-          '<div class="header">' +
-            '<strong class="primary-font"><%= username %></strong>' +
-            '<small class="pull-right text-muted">' +
-              '<span class="glyphicon glyphicon-time"></span> ' +
-                '<abbr class="timeago" title="<%= date %>"><%= timeago %></abbr>' +
-            '</small>' +
-          '</div>' +
-          '<p>' +
-            '<%= text %>' +
-          '</p>' +
-        '</div>'
-      );
-      debugger;
+  ChatUi.prototype.messageTemplate = function () {
+    var messageTemplate = _.template(
+      '<div class="message active" data-username="<%= escaped_username %>">' +
+        '<div class="header">' +
+          '<strong class="primary-font"><%= username %></strong>' +
+          '<small class="pull-right text-muted">' +
+            '<span class="glyphicon glyphicon-time"></span> ' +
+              '<abbr class="timeago" title="<%= date %>"><%= timeago %></abbr>' +
+          '</small>' +
+        '</div>' +
+        '<p>' +
+          '<%= text %>' +
+        '</p>' +
+      '</div>'
+    );
 
-    var message = messageTemplate({
-      escaped_username: escape(msg.username),
-      username: msg.username,
-      text: msg.text,
-      date: new Date().toISOString(),
-      timeago: jQuery.timeago(new Date())
-    });
-    $(message).addClass("active");
-    //
+    return messageTemplate;
+  }
+
+  ChatUi.prototype.handleMessage = function (msg) {
     var $usersLastMessage =
       $("div.active.message[data-username=\"" + escape(msg.username) + "\"]");
 
@@ -114,7 +107,7 @@
       if ((msg.text).length === 0) {
         $usersLastMessage.remove();
       } else if ($usersLastMessage.length === 0) {
-        this.$chatLog.append(message);
+        this.appendMessage(msg)
       } else {
         $($usersLastMessage.last()).find("p").html(msg.text);
       }
@@ -123,6 +116,25 @@
       $usersLastMessage.last().find("p").html(msg.text);
     }
     this.$chatLogContainer.scrollTop(this.$chatLog.height());
-
+    var numUsersTyping = $("div.active:not(.message[data-username=\"" + escape(msg.username) + "\"])").length;
+    if (numUsersTyping) {
+      document.title = "(" + numUsersTyping + ") Chatsies";
+    } else {
+      document.title = "Chatsies";
+    }
   };
+
+  ChatUi.prototype.appendMessage = function (msg) {
+    var message = this.messageTemplate()({
+      escaped_username: escape(msg.username),
+      username: msg.username,
+      text: msg.text,
+      date: new Date().toISOString(),
+      timeago: jQuery.timeago(new Date())
+    });
+    $(message).addClass("active");
+    this.$chatLog.append(message);
+  };
+
+  ChatUi.prototype.updateMessage
 })();
