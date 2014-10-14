@@ -8,7 +8,7 @@
   var ChatUi = ChatApp.ChatUi = function (id) {
 
 
-    this.$rooms = $("#rooms");
+    this.$users = $("#users");
     this.$chatLogContainer = $("#chat-log-container");
     this.$chatLog = $("#chat-log");
     this.$chatInput = $("#chat-input");
@@ -72,9 +72,9 @@
 
   ChatUi.prototype.updateRoomList = function (roomData) {
     var that = this;
-    this.$rooms.empty();
+    this.$users.empty();
     _(roomData[this.room]).each( function (username) {
-      that.$rooms.html(username + "<br>");
+      that.$users.append(username + "<br>");
     });
   };
 
