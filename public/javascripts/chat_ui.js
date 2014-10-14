@@ -36,13 +36,14 @@
   };
 
   ChatUi.prototype.handleChatInput = function () {
-    this.$chatInput.keydown(function (event) {
+    this.$chatInput.keyup(function (event) {
       if (event.keyCode === 13) {
         event.preventDefault();
         this.sendMessage("submit");
       } else {
         this.sendMessage("update");
       }
+
     }.bind(this));
   };
 

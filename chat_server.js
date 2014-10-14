@@ -48,7 +48,7 @@ var handleDisconnect = function (socket, io) {
     // });
 
     delete usernames[socket.id];
-    delete rooms[socket.id];
+    delete rooms[socket.id];  
     io.sockets.emit('roomList', getRoomData(io));
   });
 };
