@@ -15,6 +15,7 @@
   <script src="/javascripts/bootstrap.min.js"></script>
   <script src="/javascripts/chat_ui.js"></script>
   <script src="/javascripts/jquery.zclip.min.js"></script>
+  <script src="/javascripts/typed.js"></script>
 
 
   <script>
@@ -35,6 +36,20 @@
         copy:$('#room-copy-url').attr("href")
       });
 
+      $("#title-1").typed({
+        strings: [" with no backsies", ""],
+        typeSpeed: 20,
+        backSpeed: 50,
+        showCursor: false,
+        backDelay: 1000,
+        callback: function () {
+          $("#title-2").typed({
+            strings: ["sies"],
+            typeSpeed: 20,
+            showCursor: false
+          });
+        }
+      });
     });
   </script>
 
@@ -43,9 +58,11 @@
       <div class="row" id="header">
         <div class="col-xs-12 text-center">
           <h2>
-            <span id="title-1">
-              Chat</span><span><font color="#2196f3" id="header-2">sies</font>
-            </span>
+
+              Chat<span id="title-1"></span
+              ><font color="#2196f3"
+              ><span id="title-2"></span>
+              </font>
           </h2>
         </div>
       </div>

@@ -38,7 +38,6 @@
 
   ChatUi.prototype.initChat = function () {
     this.chat.socket.on("connected", function (data) {
-      debugger;
       this.username = data.username;
       this.room = data.room;
     }.bind(this));
