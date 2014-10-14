@@ -16,12 +16,6 @@ var currentUsername = (function () {
 var joinRoom = function (socket, io, room) {
   socket.join(room);
   rooms[socket.id] = room;
-
-  // io.to(room).emit('message', {
-  //   username: usernames[socket.id] + " entered the room",
-  //   // text: "joined " + room,
-  //   room: room
-  // });
 };
 
 var handleMessage = function (socket, io) {

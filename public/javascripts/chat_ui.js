@@ -65,12 +65,12 @@
 
   ChatUi.prototype.sendMessage = function (status) {
     var message = this.$chatInput.val();
-    if (message.length > 0) {
+    // if (message.length > 0) {
       if (status === "submit") {
         this.$chatInput.val("");
       }
       this.chat.sendMessage(message, status);
-    }
+    // }
   };
 
   ChatUi.prototype.updateRoomList = function (roomData) {
@@ -111,12 +111,13 @@
       $("div.active.message[data-username=\"" + escape(msg.username) + "\"]");
 
     if (msg.status === "update") {
-      if ($usersLastMessage.length === 0) {
+      if (msg.text.length === 0) {
+        $usersLastMessage.remove();
+      } else if ($usersLastMessage.length === 0) {
         this.$chatLog.append(message);
       } else {
         $($usersLastMessage.last()).find("p").html(msg.text);
       }
-
     } else {
       $usersLastMessage.last().removeClass("active");
       $usersLastMessage.last().find("p").html(msg.text);
