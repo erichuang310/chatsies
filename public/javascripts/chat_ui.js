@@ -48,7 +48,7 @@
     event.preventDefault();
     var username = $(event.currentTarget).find("input[name=username]").val();
     $(event.currentTarget).find("input[name=username]").val("");
-    this.chat.sendMessage("/username " + username);
+    this.chat.requestUsername(username);
     $("#username-modal").modal("hide");
   };
 
@@ -59,18 +59,16 @@
     this.$roomCopyUrl.attr("href", "http://www.chatsies.com/" + this.room);
     window.history.pushState("", "", this.room);
     $(event.currentTarget).find("input[name=room]").val("");
-    this.chat.sendMessage("/room " + this.room);
+    this.chat.requestRoom(this.room);
     $("#room-modal").modal("hide");
   };
 
   ChatUi.prototype.sendMessage = function (status) {
     var message = this.$chatInput.val();
-    // if (message.length > 0) {
-      if (status === "submit") {
-        this.$chatInput.val("");
-      }
-      this.chat.sendMessage(message, status);
-    // }
+    if (status === "submit") {
+      this.$chatInput.val("");
+    }
+    this.chat.sendMessage(message, status);
   };
 
   ChatUi.prototype.updateRoomList = function (roomData) {
@@ -97,6 +95,7 @@
           '</p>' +
         '</div>'
       );
+      debugger;
 
     var message = messageTemplate({
       escaped_username: escape(msg.username),
@@ -111,7 +110,7 @@
       $("div.active.message[data-username=\"" + escape(msg.username) + "\"]");
 
     if (msg.status === "update") {
-      if (msg.text.length === 0) {
+      if ((msg.text).length === 0) {
         $usersLastMessage.remove();
       } else if ($usersLastMessage.length === 0) {
         this.$chatLog.append(message);

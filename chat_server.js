@@ -1,4 +1,5 @@
 "use strict";
+var _ = require('underscore')._;
 
 var usernames = {};
 var takenUsernames = [];
@@ -23,7 +24,7 @@ var handleMessage = function (socket, io) {
     io.to(rooms[socket.id]).emit('message', {
       username: usernames[socket.id],
       status: data.status,
-      text: data.text
+      text: _(data.text).escape()
     });
   });
 };
