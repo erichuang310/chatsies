@@ -9,11 +9,14 @@
     this.socket = io();
   };
 
-  Chat.prototype.sendMessage = function(text) {
+  Chat.prototype.sendMessage = function(text, status) {
+    console.log("1" + text);
+    console.log("2" + status);
     if (text.indexOf("/") === 0) {
       this.sendCommand(text);
     } else {
       this.socket.emit("message", {
+        status: status,
         text: text
       });
     }

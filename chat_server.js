@@ -17,18 +17,18 @@ var joinRoom = function (socket, io, room) {
   socket.join(room);
   rooms[socket.id] = room;
 
-  io.to(room).emit('message', {
-    username: usernames[socket.id] + " entered the room",
-    // text: "joined " + room,
-    room: room
-  });
+  // io.to(room).emit('message', {
+  //   username: usernames[socket.id] + " entered the room",
+  //   // text: "joined " + room,
+  //   room: room
+  // });
 };
 
 var handleMessage = function (socket, io) {
   socket.on('message', function (data) {
-
     io.to(rooms[socket.id]).emit('message', {
       username: usernames[socket.id],
+      status: data.status,
       text: data.text,
       room: data.room
     });
@@ -41,11 +41,11 @@ var handleDisconnect = function (socket, io) {
     delete takenUsernames[usernameIndex];
 
     var currentRoom = rooms[socket.id];
-    io.to(currentRoom).emit('message', {
-      username: usernames[socket.id] + " left the room",
-      // text: (" is leaving " + currentRoom + "."),
-      room: currentRoom
-    });
+    // io.to(currentRoom).emit('message', {
+    //   username: usernames[socket.id] + " left the room",
+    //   // text: (" is leaving " + currentRoom + "."),
+    //   room: currentRoom
+    // });
     delete usernames[socket.id];
     delete rooms[socket.id];
   });

@@ -36,7 +36,9 @@
     this.$chatInput.keydown(function (event) {
       if (event.keyCode === 13) {
         event.preventDefault();
-        this.sendMessage();
+        this.sendMessage("submit");
+      } else {
+        this.sendMessage("update");
       }
     }.bind(this));
   };
@@ -59,11 +61,12 @@
     $("#room-modal").modal("hide");
   };
 
-  ChatUi.prototype.sendMessage = function () {
+  ChatUi.prototype.sendMessage = function (status) {
     var message = this.$chatInput.val();
     if (message.length > 0) {
-      this.$chatInput.val("");
-      this.chat.sendMessage(message);
+      if (status === "submit")
+        this.$chatInput.val("");
+      this.chat.sendMessage(message, status);
     }
   };
 
@@ -71,14 +74,14 @@
     var that = this;
     this.$rooms.empty();
     _(roomData[this.room]).each( function (username) {
-      that.$rooms.append(username + "<br>");
+      that.$rooms.html(username + "<br>");
     });
   };
 
-  ChatUi.prototype.addMessageView = function (message) {
+  ChatUi.prototype.addMessageView = function (msg) {
     var messageTemplate =
       _.template(
-        '<div class="message">' +
+        '<div class="message active" data-username="<%= escaped_username %>">' +
           '<div class="header">' +
             '<strong class="primary-font"><%= username %></strong>' +
             '<small class="pull-right text-muted">' +
@@ -93,13 +96,29 @@
       );
 
     var message = messageTemplate({
-      username: message.username,
-      text: message.text,
+      escaped_username: escape(msg.username),
+      username: msg.username,
+      text: msg.text,
       date: new Date().toISOString(),
       timeago: jQuery.timeago(new Date())
     });
+    $(message).addClass("active");
+    //
+    var $usersLastMessage =
+      $("div.active.message[data-username=\"" + escape(msg.username) + "\"]");
 
-    this.$chatLog.append(message);
+    if (msg.status === "update") {
+      if ($usersLastMessage.length === 0) {
+        this.$chatLog.append(message);
+      } else {
+        $($usersLastMessage.last()).find("p").html(msg.text);
+      }
+
+    } else {
+      $usersLastMessage.last().removeClass("active");
+      $usersLastMessage.last().find("p").html(msg.text);
+    }
     this.$chatLogContainer.scrollTop(this.$chatLog.height());
+
   };
 })();
