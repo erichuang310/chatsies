@@ -29,8 +29,7 @@ var handleMessage = function (socket, io) {
     io.to(rooms[socket.id]).emit('message', {
       username: usernames[socket.id],
       status: data.status,
-      text: data.text,
-      room: data.room
+      text: data.text
     });
   });
 };
@@ -48,7 +47,7 @@ var handleDisconnect = function (socket, io) {
     // });
 
     delete usernames[socket.id];
-    delete rooms[socket.id];  
+    delete rooms[socket.id];
     io.sockets.emit('roomList', getRoomData(io));
   });
 };

@@ -6,8 +6,6 @@
   }
 
   var ChatUi = ChatApp.ChatUi = function (id) {
-
-
     this.$users = $("#users");
     this.$chatLogContainer = $("#chat-log-container");
     this.$chatLog = $("#chat-log");
@@ -16,17 +14,17 @@
     this.$roomRequestForm = $("form#room-request");
     this.$roomName = $("#room-name");
     this.$roomCopyUrl = $("#room-copy-url");
-
     this.chat = new ChatApp.Chat();
-    if (window.location.pathname.split("/")[1]) {
-  	  this.room = window.location.pathname.split("/")[1];
-      this.chat.sendMessage("/room " + this.room);
-    } else {
-      this.room = "lobby";
-    }
+    this.room = "lobby";
+    // if (window.location.pathname.split("/")[1]) {
+  	  // this.room = window.location.pathname.split("/")[1];
+    // } else {
+      // this.room = "lobby";
+    // }/
+    // this.chat.sendMessage("/room " + this.room);
 
-    this.$roomName.html(this.room.toUpperCase());
-    this.$roomCopyUrl.attr("href", "http://www.chatsies.com/" + this.room);
+    // this.$roomName.html(this.room.toUpperCase());
+    // this.$roomCopyUrl.attr("href", "http://www.chatsies.com/" + this.room);
 
     this.handleChatInput();
     this.$roomRequestForm.on("submit", this.requestRoom.bind(this));
@@ -43,7 +41,6 @@
       } else {
         this.sendMessage("update");
       }
-
     }.bind(this));
   };
 
@@ -57,8 +54,7 @@
 
   ChatUi.prototype.requestRoom = function (event) {
     event.preventDefault();
-    var room = $(event.currentTarget).find("input[name=room]").val();
-    this.room = room;
+    this.room = $(event.currentTarget).find("input[name=room]").val();
     this.$roomName.html(this.room.toUpperCase());
     this.$roomCopyUrl.attr("href", "http://www.chatsies.com/" + this.room);
     window.history.pushState("", "", this.room);
@@ -70,8 +66,9 @@
   ChatUi.prototype.sendMessage = function (status) {
     var message = this.$chatInput.val();
     if (message.length > 0) {
-      if (status === "submit")
+      if (status === "submit") {
         this.$chatInput.val("");
+      }
       this.chat.sendMessage(message, status);
     }
   };
