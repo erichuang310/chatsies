@@ -26,24 +26,18 @@
     // this.$roomName.html(this.room.toUpperCase());
     // this.$roomCopyUrl.attr("href", "http://www.chatsies.com/" + this.room);
 
-    this.handleChatInput();
+    this.handleChatInputChange();
     this.$roomRequestForm.on("submit", this.requestRoom.bind(this));
     this.$usernameRequestForm.on("submit", this.requestUsername.bind(this));
     this.chat.socket.on('roomList', this.updateRoomList.bind(this));
     this.chat.socket.on("message", this.addMessageView.bind(this));
   };
 
-  ChatUi.prototype.handleChatInput = function () {
-
-
+  ChatUi.prototype.handleChatInputChange = function () {
     var message = this.$chatInput.val();
-    if (status === "submit") {
-      this.$chatInput.val("");
-    }
 
     this.$chatInput.keyup(function (event) {
       var text = $(event.currentTarget).val();
-
       if (event.keyCode === 13) {
         event.preventDefault();
         this.$chatInput.val("");
@@ -56,7 +50,6 @@
         status: status,
         text: text
       });
-
     }.bind(this));
   };
 
