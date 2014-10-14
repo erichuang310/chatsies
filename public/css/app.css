@@ -91,6 +91,10 @@ div.active.message strong {
   padding: 15px;
 }
 
+#chat {
+  margin-bottom: 10px;
+}
+
 #chat-footer {
   height: 100px;
   padding: 15px;
@@ -107,25 +111,11 @@ div.active.message strong {
 .btn-group.open .dropdown-toggle {
 
 }
-/*
-.typed-cursor{
-    opacity: 1;
-    -webkit-animation: blink 1s infinite;
-    -moz-animation: blink 1s infinite;
-    animation: blink 1s infinite;
+
+#title {
+  height: 60px;
 }
-@keyframes blink{
-    0% { opacity:1; }
-    50% { opacity:0; }
-    100% { opacity:1; }
+
+#title h2 {
+  margin-top: 0px;
 }
-@-webkit-keyframes blink{
-    0% { opacity:1; }
-    50% { opacity:0; }
-    100% { opacity:1; }
-}
-@-moz-keyframes blink{
-    0% { opacity:1; }
-    50% { opacity:0; }
-    100% { opacity:1; }
-}*/

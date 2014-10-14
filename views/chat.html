@@ -30,39 +30,40 @@
 
       updateTime();
 
-
       $('#room-copy-url').zclip({
         path:'javascripts/ZeroClipboard.swf',
         copy:$('#room-copy-url').attr("href")
       });
 
-      setTimeout( function () {
+      var blackTitleOptions = {
+        strings: ["Chat with no backsies", "Chat"],
+        typeSpeed: 20,
+        backSpeed: 50,
+        showCursor: false,
+        backDelay: 1000,
+        callback: function () {
+          $("#title-2").typed(blueTitleOptions);
+        }
+      };
 
-        $("#title-1").typed({
-          strings: [" with no backsies", ""],
-          typeSpeed: 20,
-          backSpeed: 50,
-          showCursor: false,
-          backDelay: 1000,
-          callback: function () {
-            $("#title-2").typed({
-              strings: ["sies"],
-              typeSpeed: 20,
-              showCursor: false
-            });
-          }
-        });
-      }, 1000);
+      var blueTitleOptions = {
+        strings: ["sies"],
+        typeSpeed: 20,
+        showCursor: false
+      };
+
+      setTimeout( function () {
+        $("#title-1").typed(blackTitleOptions)
+      }, 300);
     });
   </script>
 
   <body>
     <div class="container">
       <div class="row" id="header">
-        <div class="col-xs-12 text-center">
+        <div class="col-xs-12 text-center" id="title">
           <h2>
-
-              Chat<span id="title-1"></span
+              <span id="title-1"></span
               ><font color="#2196f3"
               ><span id="title-2"></span>
               </font>
