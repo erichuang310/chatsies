@@ -36,20 +36,23 @@
         copy:$('#room-copy-url').attr("href")
       });
 
-      $("#title-1").typed({
-        strings: [" with no backsies", ""],
-        typeSpeed: 20,
-        backSpeed: 50,
-        showCursor: false,
-        backDelay: 1000,
-        callback: function () {
-          $("#title-2").typed({
-            strings: ["sies"],
-            typeSpeed: 20,
-            showCursor: false
-          });
-        }
-      });
+      setTimeout( function () {
+
+        $("#title-1").typed({
+          strings: [" with no backsies", ""],
+          typeSpeed: 20,
+          backSpeed: 50,
+          showCursor: false,
+          backDelay: 1000,
+          callback: function () {
+            $("#title-2").typed({
+              strings: ["sies"],
+              typeSpeed: 20,
+              showCursor: false
+            });
+          }
+        });
+      }, 1000);
     });
   </script>
 
