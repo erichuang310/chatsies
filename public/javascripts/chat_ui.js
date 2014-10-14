@@ -15,15 +15,18 @@
     this.$usernameRequestForm = $("form#username-request");
     this.$roomRequestForm = $("form#room-request");
     this.$roomName = $("#room-name");
+    this.$roomCopyUrl = $("#room-copy-url");
 
     this.chat = new ChatApp.Chat();
     if (window.location.pathname.split("/")[1]) {
   	  this.room = window.location.pathname.split("/")[1];
       this.chat.sendMessage("/room " + this.room);
-      this.$roomName.html(this.room.toUpperCase());
     } else {
       this.room = "lobby";
     }
+
+    this.$roomName.html(this.room.toUpperCase());
+    this.$roomCopyUrl.attr("href", "http://www.chatsies.com/" + this.room);
 
     this.handleChatInput();
     this.$roomRequestForm.on("submit", this.requestRoom.bind(this));
@@ -56,6 +59,8 @@
     var room = $(event.currentTarget).find("input[name=room]").val();
     this.room = room;
     this.$roomName.html(this.room.toUpperCase());
+    this.$roomCopyUrl.attr("href", "http://www.chatsies.com/" + this.room);
+    window.history.pushState("", "", this.room);
     $(event.currentTarget).find("input[name=room]").val("");
     this.chat.sendMessage("/room " + room);
     $("#room-modal").modal("hide");

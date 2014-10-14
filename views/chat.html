@@ -14,6 +14,9 @@
   <script src="/javascripts/chat.js"></script>
   <script src="/javascripts/bootstrap.min.js"></script>
   <script src="/javascripts/chat_ui.js"></script>
+  <script src="/javascripts/jquery.zclip.min.js"></script>
+
+
   <script>
     $(function () {
       var chatUi = new ChatApp.ChatUi();
@@ -25,6 +28,12 @@
       };
 
       updateTime();
+
+
+      $('#room-copy-url').zclip({
+        path:'javascripts/ZeroClipboard.swf',
+        copy:$('#room-copy-url').attr("href")
+      });
 
     });
   </script>
@@ -48,11 +57,10 @@
                 <div class="col-xs-9">
                   <span class="glyphicon glyphicon-comment"></span>
                   <span id="room-name"></span>
-                  <a href="#">COPY LINK</a>
+                  <a href="#" id="room-copy-url">CLICK TO COPY LINK</a>
                 </div>
                 <div class="col-xs-3 text-right">
                   <div class="btn-group">
-                    <!-- <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> -->
                       <a
                         href="#"
                         class="dropdown-toggle"
