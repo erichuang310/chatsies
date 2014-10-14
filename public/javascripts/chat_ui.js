@@ -59,7 +59,7 @@
     this.$roomCopyUrl.attr("href", "http://www.chatsies.com/" + this.room);
     window.history.pushState("", "", this.room);
     $(event.currentTarget).find("input[name=room]").val("");
-    this.chat.sendMessage("/room " + room);
+    this.chat.sendMessage("/room " + this.room);
     $("#room-modal").modal("hide");
   };
 
