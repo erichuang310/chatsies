@@ -114,6 +114,10 @@ var ChatServer = function(io) {
     handleUsernameChangeRequest(socket, io);
     handleRoomChangeRequests(socket, io);
     handleDisconnect(socket, io);
+    socket.emit('connected', {
+      username: usernames[socket.id],
+      room: rooms[socket.id]
+    });
     io.sockets.emit('roomList', getRoomData(io));
   });
 };

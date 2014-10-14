@@ -15,7 +15,8 @@
     this.$roomName = $("#room-name");
     this.$roomCopyUrl = $("#room-copy-url");
     this.chat = new ChatApp.Chat();
-    this.room = "lobby";
+    this.initChat();
+
     // if (window.location.pathname.split("/")[1]) {
   	  // this.room = window.location.pathname.split("/")[1];
     // } else {
@@ -25,15 +26,25 @@
 
     // this.$roomName.html(this.room.toUpperCase());
     // this.$roomCopyUrl.attr("href", "http://www.chatsies.com/" + this.room);
-
-    this.handleChatInputChange();
+    // this.cycleTitles();
+    this.handleChatInputChanges();
+    this.handleRoomChanges();
+    this.handleMessages();
+    // this.handleUsernameChanges();
     this.$roomRequestForm.on("submit", this.requestRoom.bind(this));
     this.$usernameRequestForm.on("submit", this.requestUsername.bind(this));
-    this.chat.socket.on('roomList', this.updateRoomList.bind(this));
-    this.chat.socket.on("message", this.handleMessage.bind(this));
+
   };
 
-  ChatUi.prototype.handleChatInputChange = function () {
+  ChatUi.prototype.initChat = function () {
+    this.chat.socket.on("connected", function (data) {
+      debugger;
+      this.username = data.username;
+      this.room = data.room;
+    }.bind(this));
+  };
+
+  ChatUi.prototype.handleChatInputChanges = function () {
     var message = this.$chatInput.val();
 
     this.$chatInput.keyup(function (event) {
@@ -72,11 +83,13 @@
     $("#room-modal").modal("hide");
   };
 
-  ChatUi.prototype.updateRoomList = function (roomData) {
+  ChatUi.prototype.handleRoomChanges = function () {
     var that = this;
-    this.$users.empty();
-    _(roomData[this.room]).each( function (username) {
-      that.$users.append(username + "<br>");
+    this.chat.socket.on('roomList', function (roomData) {
+      that.$users.empty();
+      _(roomData[that.room]).each( function (username) {
+        that.$users.append(username + "<br>");
+      });
     });
   };
 
@@ -99,29 +112,40 @@
     return messageTemplate;
   }
 
-  ChatUi.prototype.handleMessage = function (msg) {
-    var $usersLastMessage =
-      $("div.active.message[data-username=\"" + escape(msg.username) + "\"]");
+  ChatUi.prototype.handleMessages = function () {
+    this.chat.socket.on("message", function (msg) {
+      var $usersLastMessage =
+        $("div.active.message[data-username=\"" + escape(msg.username) + "\"]");
 
-    if (msg.status === "update") {
-      if ((msg.text).length === 0) {
-        $usersLastMessage.remove();
-      } else if ($usersLastMessage.length === 0) {
-        this.appendMessage(msg)
+      if (msg.status === "update") {
+        if ((msg.text).length === 0) {
+          $usersLastMessage.remove();
+        } else if ($usersLastMessage.length === 0) {
+          this.appendMessage(msg)
+        } else {
+          $($usersLastMessage.last()).find("p").html(msg.text);
+        }
       } else {
-        $($usersLastMessage.last()).find("p").html(msg.text);
+        $usersLastMessage.last().removeClass("active");
+        $usersLastMessage.last().find("p").html(msg.text);
       }
-    } else {
-      $usersLastMessage.last().removeClass("active");
-      $usersLastMessage.last().find("p").html(msg.text);
-    }
-    this.$chatLogContainer.scrollTop(this.$chatLog.height());
-    var numUsersTyping = $("div.active:not(.message[data-username=\"" + escape(msg.username) + "\"])").length;
-    if (numUsersTyping) {
-      document.title = "(" + numUsersTyping + ") Chatsies";
-    } else {
-      document.title = "Chatsies";
-    }
+      this.$chatLogContainer.scrollTop(this.$chatLog.height());
+    }.bind(this));
+  };
+
+  ChatUi.prototype.cycleTitles = function () {
+    var that = this;
+    setTimeout( function () {
+      debugger;
+      var numUsersTyping = $("div.active:not(.message[data-username=\"" + escape(that.username) + "\"])").length;
+      if (numUsersTyping) {
+        document.title = "(" + numUsersTyping + ") Chatsies";
+      } else {
+        document.title = "Chatsies";
+      }
+      that.cycleTitles();
+    }, 1000);
+
   };
 
   ChatUi.prototype.appendMessage = function (msg) {
