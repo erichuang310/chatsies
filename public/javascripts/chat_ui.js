@@ -44,10 +44,9 @@
   };
 
   ChatUi.prototype.handleChatInputChanges = function () {
-    var message = this.$chatInput.val();
-
-    this.$chatInput.keyup(function (event) {
-      var text = $(event.currentTarget).val();
+    // var message = this.$chatInput.val();
+    this.$chatInput.on("keyup keydown", function (event) {
+      var text = $(event.currentTarget).val().trim();
       if (event.keyCode === 13) {
         event.preventDefault();
         this.$chatInput.val("");
@@ -102,9 +101,9 @@
               '<abbr class="timeago" title="<%= date %>"><%= timeago %></abbr>' +
           '</small>' +
         '</div>' +
-        '<p>' +
-          '<%= text %>' +
-        '</p>' +
+          '<p>' +
+            '<%= text %>' +
+          '</p>' +
       '</div>'
     );
 

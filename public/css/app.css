@@ -119,3 +119,7 @@ div.active.message strong {
 #title h2 {
   margin-top: 0px;
 }
+
+p {
+  white-space: pre;
+}
